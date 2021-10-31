@@ -148,6 +148,9 @@ public func simd_normalize(_ vector: simd_double3) -> simd_double3 {
     let d = simd_length(vector)
     return simd_double3(vector.x/d, vector.y/d, vector.z/d)
 }
+public func abs(_ vector: simd_double3) -> simd_double3 {
+    return simd_double3(abs(vector.x), abs(vector.y), abs(vector.z))
+}
 
 // STUBS ONLY
 public func simd_act(_ quat: simd_quatd, _ vector: simd_double3) -> simd_double3 {
