@@ -110,6 +110,12 @@ public func simd_min(_ left: simd_double3, _ right: simd_double3) -> simd_double
 public func simd_max(_ left: simd_double3, _ right: simd_double3) -> simd_double3 {
     return simd_double3(max(left.x,right.x), max(left.y,right.y), max(left.z,right.z))
 }
+public func simd_min(_ left: simd_double2, _ right: simd_double2) -> simd_double2 {
+    return simd_double2(min(left.x,right.x), min(left.y,right.y))
+}
+public func simd_max(_ left: simd_double2, _ right: simd_double2) -> simd_double2 {
+    return simd_double2(max(left.x,right.x), max(left.y,right.y))
+}
 public func simd_length(_ vector: simd_double2) -> Double {
     let d2 = vector.x*vector.x + vector.y*vector.y
     return d2.squareRoot()
