@@ -6,6 +6,12 @@ public struct simd_double3: Decodable {
     public var x: Double
     public var y: Double
     public var z: Double
+
+    public init(_ x: Double,_ y: Double,_ z: Double) {
+        self.x = x
+        self.y = y
+        self.z = z
+    }
 }
 public func simd_dot(_ x: simd_double3, _ y: simd_double3) -> Double {
     return x.x*y.x + x.y*y.y + x.z*y.z
@@ -18,8 +24,8 @@ public func simd_distance(_ x: simd_double3, _ y: simd_double3) -> Double {
     return d2.squareRoot()
 }
 public func simd_min(_ x: simd_double3, _ y: simd_double3) -> simd_double3 {
-    return simd_double3(x: min(x.x,y.x), y: min(x.y,y.y), z: min(x.z,y.z))
+    return simd_double3(min(x.x,y.x), min(x.y,y.y), min(x.z,y.z))
 }
 public func simd_max(_ x: simd_double3, _ y: simd_double3) -> simd_double3 {
-    return simd_double3(x: max(x.x,y.x), y: max(x.y,y.y), z: max(x.z,y.z))
+    return simd_double3(max(x.x,y.x), max(x.y,y.y), max(x.z,y.z))
 }
