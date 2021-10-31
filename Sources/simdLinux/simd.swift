@@ -29,6 +29,9 @@ public extension simd_double2 {
     static func * (left: simd_double2, right: Double) -> simd_double2 {
         return simd_double2(left.x * right, left.y * right)
     }
+    static func * (left: Double, right: simd_double2) -> simd_double2 {
+        return simd_double2(left * right.x, left * right.y)
+    }
     static func / (left: simd_double2, right: Double) -> simd_double2 {
         return simd_double2(left.x / right, left.y / right)
     }
