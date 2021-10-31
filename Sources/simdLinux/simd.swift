@@ -34,6 +34,7 @@ public struct simd_double3: Decodable {
         self.y = y
         self.z = z
     }
+    public static let zero = simd_double3(0,0,0)
 }
 extension simd_double3: Equatable {
     public static func == (left: simd_double3, right: simd_double3) -> Bool {
@@ -96,4 +97,7 @@ public func simd_length(_ vector: simd_double3) -> Double {
 public func simd_normalize(_ vector: simd_double3) -> simd_double3 {
     let d = simd_length(vector)
     return simd_double3(vector.x/d, vector.y/d, vector.z/d)
+}
+public func simd_act(_ quat: simd_quaternion, _ vector: simd_double3) -> simd_double3 {
+    return simd_double3(0,0,0)
 }
