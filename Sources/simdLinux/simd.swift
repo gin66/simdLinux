@@ -1,6 +1,11 @@
 public struct simd_double2: Decodable {
     public var x: Double
     public var y: Double
+
+    public init(_ x: Double,_ y: Double) {
+        self.x = x
+        self.y = y
+    }
 }
 extension simd_double2: Equatable {
     public static func == (left: simd_double2, right: simd_double2) -> Bool {
