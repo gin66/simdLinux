@@ -26,6 +26,9 @@ public extension simd_double2 {
     static prefix func - (vector: simd_double2) -> simd_double2 {
         return simd_double2(-vector.x, -vector.y)
     }
+    static func / (left: simd_double2, right: Double) -> simd_double2 {
+        return simd_double2(left.x / right, left.y / right)
+    }
 }
 
 public struct simd_double3: Codable, Hashable {
