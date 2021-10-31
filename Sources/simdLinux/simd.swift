@@ -54,6 +54,9 @@ public extension simd_double3 {
     static func * (left: simd_double3, right: Double) -> simd_double3 {
         return simd_double3(left.x * right, left.y * right, left.z * right)
     }
+    static func / (left: simd_double3, right: Double) -> simd_double3 {
+        return simd_double3(left.x / right, left.y / right, left.z / right)
+    }
     static prefix func - (vector: simd_double3) -> simd_double3 {
         return simd_double3(-vector.x, -vector.y, -vector.z)
     }
