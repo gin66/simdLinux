@@ -70,6 +70,11 @@ public struct simd_double3: Codable, Hashable {
         self.y = Double(v[1])
         self.z = Double(v[2])
     }
+    public init(_ v: [Double]) {
+        self.x = v[0]
+        self.y = v[1]
+        self.z = v[2]
+    }
     public static let zero = simd_double3(0,0,0)
     public static let one = simd_double3(1,1,1)
 }
