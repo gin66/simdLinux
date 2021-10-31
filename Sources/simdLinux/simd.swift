@@ -98,6 +98,6 @@ public func simd_normalize(_ vector: simd_double3) -> simd_double3 {
     let d = simd_length(vector)
     return simd_double3(vector.x/d, vector.y/d, vector.z/d)
 }
-public func simd_act(_ quat: simd_quaternion, _ vector: simd_double3) -> simd_double3 {
+public func simd_act(_ quat: simd_quatd, _ vector: simd_double3) -> simd_double3 {
     return simd_double3(0,0,0)
 }
