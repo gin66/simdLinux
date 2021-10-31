@@ -55,6 +55,11 @@ public struct simd_double3: Codable, Hashable {
         self.y = y
         self.z = z
     }
+    public init(x: Int,y: Int,z: Int) {
+        self.x = Double(x)
+        self.y = Double(y)
+        self.z = Double(z)
+    }
     public static let zero = simd_double3(0,0,0)
     public static let one = simd_double3(1,1,1)
 }
