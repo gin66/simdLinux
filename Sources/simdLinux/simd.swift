@@ -66,11 +66,11 @@ public func simd_cross(_ left: simd_double3, _ right: simd_double3) -> simd_doub
     let z = left.x*right.y - left.y*right.x
     return simd_double3(x,y,z)
 }
-public func simd_min(_ x: simd_double3, _ y: simd_double3) -> simd_double3 {
-    return simd_double3(min(x.x,y.x), min(x.y,y.y), min(x.z,y.z))
+public func simd_min(_ left: simd_double3, _ right: simd_double3) -> simd_double3 {
+    return simd_double3(min(left.x,right.x), min(left.y,right.y), min(left.z,right.z))
 }
-public func simd_max(_ x: simd_double3, _ y: simd_double3) -> simd_double3 {
-    return simd_double3(max(x.x,y.x), max(x.y,y.y), max(x.z,y.z))
+public func simd_max(_ left: simd_double3, _ right: simd_double3) -> simd_double3 {
+    return simd_double3(max(left.x,right.x), max(left.y,right.y), max(left.z,right.z))
 }
 public func simd_length(_ vector: simd_double3) -> Double {
     let d2 = vector.x*vector.x + vector.y*vector.y + vector.z*vector.z
