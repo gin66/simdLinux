@@ -112,6 +112,9 @@ public func simd_normalize(_ vector: simd_double3) -> simd_double3 {
 public func simd_act(_ quat: simd_quatd, _ vector: simd_double3) -> simd_double3 {
     return simd_double3(0,0,0)
 }
+public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
+    return simd_quatd(0,0,0)
+}
 public func simd_quaternion(_ ang: Double, _ vector: simd_double3) -> simd_quatd {
     return simd_quatd(0,0,0,0)
 }
