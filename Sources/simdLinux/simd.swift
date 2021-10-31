@@ -68,6 +68,9 @@ public struct simd_quatd: Decodable {
 }
 
 
+public func simd_dot(_ left: simd_double2, _ right: simd_double2) -> Double {
+    return left.x*right.x + left.y*right.y
+}
 public func simd_dot(_ left: simd_double3, _ right: simd_double3) -> Double {
     return left.x*right.x + left.y*right.y + left.z*right.z
 }
