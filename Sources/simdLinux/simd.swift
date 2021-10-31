@@ -56,6 +56,7 @@ public struct simd_double3: Codable, Hashable {
         self.z = z
     }
     public static let zero = simd_double3(0,0,0)
+    public static let one = simd_double3(1,1,1)
 }
 extension simd_double3: Equatable {
     public static func == (left: simd_double3, right: simd_double3) -> Bool {
