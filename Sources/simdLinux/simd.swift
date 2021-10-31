@@ -118,6 +118,15 @@ public struct simd_quatd: Codable {
     }
 }
 
+public struct simd_matrix: Codable, Hashable {
+    public var c1: simd_double2
+    public var c2: simd_double2
+
+    public init(_ c1: simd_double2,_ c2: simd_double2) {
+        self.c1 = c1
+        self.c2 = c1
+    }
+}
 
 public func simd_dot(_ left: simd_double2, _ right: simd_double2) -> Double {
     return left.x*right.x + left.y*right.y
@@ -185,4 +194,7 @@ public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
 }
 public func simd_quaternion(_ ang: Double, _ vector: simd_double3) -> simd_quatd {
     return simd_quatd(0,0,0,0)
+}
+public func simd_mul(_ left: simd_matrix, _ right: simd_double2) -> simd_double2 {
+    return simd_double2(0,0)
 }
