@@ -1,5 +1,5 @@
     import XCTest
-    @testable import simd
+    @testable import simdLinux
 
     final class simdTests: XCTestCase {
         func testExample() {
