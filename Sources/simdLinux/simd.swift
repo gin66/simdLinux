@@ -6,6 +6,10 @@ public struct simd_double2: Codable {
         self.x = x
         self.y = y
     }
+    public init(x: Double,y: Double) {
+        self.x = x
+        self.y = y
+    }
 }
 extension simd_double2: Equatable {
     public static func == (left: simd_double2, right: simd_double2) -> Bool {
@@ -30,6 +34,11 @@ public struct simd_double3: Codable, Hashable {
     public var z: Double
 
     public init(_ x: Double,_ y: Double,_ z: Double) {
+        self.x = x
+        self.y = y
+        self.z = z
+    }
+    public init(x: Double,y: Double,z: Double) {
         self.x = x
         self.y = y
         self.z = z
