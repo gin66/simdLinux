@@ -26,6 +26,9 @@ public extension simd_double2 {
     static prefix func - (vector: simd_double2) -> simd_double2 {
         return simd_double2(-vector.x, -vector.y)
     }
+    static func * (left: simd_double2, right: simd_double2) -> simd_double2 {
+        return simd_double2(left.x * right.x, left.y * right.y)
+    }
     static func * (left: simd_double2, right: Double) -> simd_double2 {
         return simd_double2(left.x * right, left.y * right)
     }
@@ -121,6 +124,12 @@ public func simd_dot(_ left: simd_double2, _ right: simd_double2) -> Double {
 }
 public func simd_dot(_ left: simd_double3, _ right: simd_double3) -> Double {
     return left.x*right.x + left.y*right.y + left.z*right.z
+}
+public func simd_distance(_ left: simd_double2, _ right: simd_double2) -> Double {
+    let dx = left.x - right.x
+    let dy = left.y - right.y
+    let d2 = dx*dx + dy*dy
+    return d2.squareRoot()
 }
 public func simd_distance(_ left: simd_double3, _ right: simd_double3) -> Double {
     let dx = left.x - right.x
