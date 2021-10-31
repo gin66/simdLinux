@@ -71,16 +71,23 @@ public extension simd_double3 {
 }
 
 public struct simd_quatd: Codable {
-    public var x: Double
-    public var y: Double
-    public var z: Double
-    public var w: Double
+    public var ix: Double
+    public var iy: Double
+    public var iz: Double
+    public var r: Double
 
-    public init(_ x: Double,_ y: Double,_ z: Double,_ w: Double) {
-        self.x = x
-        self.y = y
-        self.z = z
-        self.w = w
+    public init(_ ix: Double,_ iy: Double,_ iz: Double,_ r: Double) {
+        self.ix = ix
+        self.iy = iy
+        self.iz = iz
+        self.r = r
+    }
+
+    public init(ix: Double,iy: Double,iz: Double,r: Double) {
+        self.ix = ix
+        self.iy = iy
+        self.iz = iz
+        self.r = r
     }
 }
 
