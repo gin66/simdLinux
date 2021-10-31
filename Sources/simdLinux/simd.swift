@@ -23,6 +23,7 @@ public extension simd_double2 {
         return simd_double2(-vector.x, -vector.y)
     }
 }
+
 public struct simd_double3: Decodable {
     public var x: Double
     public var y: Double
@@ -50,6 +51,22 @@ public extension simd_double3 {
         return simd_double3(-vector.x, -vector.y, -vector.z)
     }
 }
+
+public struct simd_quaternion: Decodable {
+    public var x: Double
+    public var y: Double
+    public var z: Double
+    public var w: Double
+
+    public init(_ x: Double,_ y: Double,_ z: Double,_ w: Double) {
+        self.x = x
+        self.y = y
+        self.z = z
+        self.w = w
+    }
+}
+
+
 public func simd_dot(_ left: simd_double3, _ right: simd_double3) -> Double {
     return left.x*right.x + left.y*right.y + left.z*right.z
 }
