@@ -66,8 +66,11 @@ public func simd_min(_ x: simd_double3, _ y: simd_double3) -> simd_double3 {
 public func simd_max(_ x: simd_double3, _ y: simd_double3) -> simd_double3 {
     return simd_double3(max(x.x,y.x), max(x.y,y.y), max(x.z,y.z))
 }
-public func simd_normalize(_ vector: simd_double3) -> simd_double3 {
+public func simd_length(_ vector: simd_double3) -> Double {
     let d2 = vector.x*vector.x + vector.y*vector.y + vector.z*vector.z
-    let d = d2.squareRoot()
+    return d2.squareRoot()
+}
+public func simd_normalize(_ vector: simd_double3) -> simd_double3 {
+    let d = simd_length(vector)
     return simd_double3(vector.x/d, vector.y/d, vector.z/d)
 }
