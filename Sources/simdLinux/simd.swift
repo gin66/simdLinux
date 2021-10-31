@@ -1,4 +1,4 @@
-public struct simd_double2: Decodable {
+public struct simd_double2: Codable {
     public var x: Double
     public var y: Double
 
@@ -24,7 +24,7 @@ public extension simd_double2 {
     }
 }
 
-public struct simd_double3: Decodable {
+public struct simd_double3: Codable {
     public var x: Double
     public var y: Double
     public var z: Double
@@ -53,7 +53,7 @@ public extension simd_double3 {
     }
 }
 
-public struct simd_quatd: Decodable {
+public struct simd_quatd: Codable {
     public var x: Double
     public var y: Double
     public var z: Double
