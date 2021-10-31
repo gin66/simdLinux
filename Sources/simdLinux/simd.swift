@@ -54,6 +54,9 @@ public extension simd_double3 {
     static func * (left: simd_double3, right: Double) -> simd_double3 {
         return simd_double3(left.x * right, left.y * right, left.z * right)
     }
+    static func * (left: Double, right: simd_double3) -> simd_double3 {
+        return simd_double3(left * right.x, left * right.y, left * right.z)
+    }
     static func * (left: simd_double3, right: simd_double3) -> simd_double3 {
         return simd_double3(left.x * right.x, left.y * right.y, left.z * right.z)
     }
@@ -108,6 +111,10 @@ public func simd_max(_ left: simd_double3, _ right: simd_double3) -> simd_double
 public func simd_length(_ vector: simd_double3) -> Double {
     let d2 = vector.x*vector.x + vector.y*vector.y + vector.z*vector.z
     return d2.squareRoot()
+}
+public func simd_normalize(_ vector: simd_double2) -> simd_double2 {
+    let d = simd_length(vector)
+    return simd_double2(vector.x/d, vector.y/d)
 }
 public func simd_normalize(_ vector: simd_double3) -> simd_double3 {
     let d = simd_length(vector)
