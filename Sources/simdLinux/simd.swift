@@ -50,15 +50,21 @@ public extension simd_double3 {
         return simd_double3(-vector.x, -vector.y, -vector.z)
     }
 }
-public func simd_dot(_ x: simd_double3, _ y: simd_double3) -> Double {
-    return x.x*y.x + x.y*y.y + x.z*y.z
+public func simd_dot(_ left: simd_double3, _ right: simd_double3) -> Double {
+    return left.x*right.x + left.y*right.y + left.z*right.z
 }
-public func simd_distance(_ x: simd_double3, _ y: simd_double3) -> Double {
-    let dx = x.x - y.x
-    let dy = x.y - y.y
-    let dz = x.z - y.z
+public func simd_distance(_ left: simd_double3, _ right: simd_double3) -> Double {
+    let dx = left.x - right.x
+    let dy = left.y - right.y
+    let dz = left.z - right.z
     let d2 = dx*dx + dy*dy + dz*dz
     return d2.squareRoot()
+}
+public func simd_cross(_ left: simd_double3, _ right: simd_double3) -> simd_double3 {
+    let x = left.y*right.z - left.z*right.y
+    let y = left.z*right.x - left.x*right.z
+    let z = left.x*right.y - left.y*right.x
+    return simd_double3(x,y,z)
 }
 public func simd_min(_ x: simd_double3, _ y: simd_double3) -> simd_double3 {
     return simd_double3(min(x.x,y.x), min(x.y,y.y), min(x.z,y.z))
