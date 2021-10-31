@@ -53,7 +53,7 @@ public extension simd_double3 {
     }
 }
 
-public struct simd_quaternion: Decodable {
+public struct simd_quatd: Decodable {
     public var x: Double
     public var y: Double
     public var z: Double
