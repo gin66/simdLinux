@@ -45,8 +45,10 @@ public extension simd_double3 {
     static func + (left: simd_double3, right: simd_double3) -> simd_double3 {
         return simd_double3(left.x + right.x, left.y + right.y, left.z + right.z)
     }
-    static func += (left: simd_double3, right: simd_double3) -> simd_double3 {
-        return simd_double3(left.x + right.x, left.y + right.y, left.z + right.z)
+    static func += (left: inout simd_double3, right: simd_double3) {
+        left.x += right.x
+        left.y += right.y
+        left.z += right.z
     }
     static func - (left: simd_double3, right: simd_double3) -> simd_double3 {
         return simd_double3(left.x - right.x, left.y - right.y, left.z - right.z)
