@@ -13,6 +13,22 @@ public struct simd_double3: Decodable {
         self.z = z
     }
 }
+extension simd_double3: Equatable {
+    public static func == (left: simd_double3, right: simd_double3) -> Bool {
+        return (left.x == right.x) && (left.y == right.y) && (left.z == right.z)
+    }
+}
+public extension simd_double3 {
+    static func + (left: simd_double3, right: simd_double3) -> simd_double3 {
+        return simd_double3(left.x + right.x, left.y + right.y, left.z + right.z)
+    }
+    static func - (left: simd_double3, right: simd_double3) -> simd_double3 {
+        return simd_double3(left.x - right.x, left.y - right.y, left.z - right.z)
+    }
+    static prefix func - (vector: simd_double3) -> simd_double3 {
+        return simd_double3(-vector.x, -vector.y, -vector.z)
+    }
+}
 public func simd_dot(_ x: simd_double3, _ y: simd_double3) -> Double {
     return x.x*y.x + x.y*y.y + x.z*y.z
 }
