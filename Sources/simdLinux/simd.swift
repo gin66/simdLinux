@@ -1,4 +1,4 @@
-public struct simd_double2: Codable {
+public struct simd_double2: Codable, Hashable {
     public var x: Double
     public var y: Double
 
