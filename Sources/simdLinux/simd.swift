@@ -2,6 +2,22 @@ public struct simd_double2: Decodable {
     public var x: Double
     public var y: Double
 }
+extension simd_double2: Equatable {
+    public static func == (left: simd_double2, right: simd_double2) -> Bool {
+        return (left.x == right.x) && (left.y == right.y)
+    }
+}
+public extension simd_double2 {
+    static func + (left: simd_double2, right: simd_double2) -> simd_double2 {
+        return simd_double2(left.x + right.x, left.y + right.y)
+    }
+    static func - (left: simd_double2, right: simd_double2) -> simd_double2 {
+        return simd_double2(left.x - right.x, left.y - right.y)
+    }
+    static prefix func - (vector: simd_double2) -> simd_double2 {
+        return simd_double2(-vector.x, -vector.y)
+    }
+}
 public struct simd_double3: Decodable {
     public var x: Double
     public var y: Double
