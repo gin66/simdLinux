@@ -243,6 +243,6 @@ public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
     let ix = a1*b2 + b1*a2 + c1*d2 - d1*c2
     let iy = a1*c2 - b1*d2 + c1*a2 + d1*b2
     let iz = a1*d2 + b1*c2 - c1*b2 + d1*a2
-    return simd_quatd(ix,iy,iz,x)
+    return simd_quatd(ix,iy,iz,r)
 }
 
