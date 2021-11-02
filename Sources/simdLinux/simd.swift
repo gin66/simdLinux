@@ -1,3 +1,5 @@
+import Foundation
+
 public struct simd_double2: Codable, Hashable {
     public var x: Double
     public var y: Double
@@ -205,17 +207,42 @@ public func simd_normalize(_ vector: simd_double3) -> simd_double3 {
 public func abs(_ vector: simd_double3) -> simd_double3 {
     return simd_double3(abs(vector.x), abs(vector.y), abs(vector.z))
 }
-
-// STUBS ONLY
-public func simd_act(_ quat: simd_quatd, _ vector: simd_double3) -> simd_double3 {
-    return simd_double3(0,0,0)
+public func simd_mul(_ left: simd_matrix, _ right: simd_double2) -> simd_double2 {
+    let x = left.c1.x * right.x + left.c2.x * right.y
+    let y = left.c1.y * right.x + left.c2.y * right.y
+    return simd_double2(x,y)
 }
-public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
-    return simd_quatd(0,0,0,0)
+public func simd_act(_ quat: simd_quatd, _ vector: simd_double3) -> simd_double3 {
+    // https://en..m.wijipedia.org/wiki/Euler-Rodrigues_formula
+    // alternative: https://gamedev.stackexchange.com/questions/28395/rotating-vector3-by-a-quaternion
+    let w = simd_double3(quat.ix,quat.iy,quat.iz)
+    let w_x = simd_cross(w,vector)
+    let w_w_x = simd_cross(w, w_x)
+    return vector + 2*quat.r*w_x + 2 * w_w_x
 }
 public func simd_quaternion(_ ang: Double, _ vector: simd_double3) -> simd_quatd {
-    return simd_quatd(0,0,0,0)
+    let n = simd_normalize(vector)
+    let c = cos(ang/2)
+    let s = sin(ang/2)
+    let ix = n.x * s
+    let iy = n.y * s
+    let iz = n.z * s
+    return simd_quatd(ix,iy,iz,c)
 }
-public func simd_mul(_ left: simd_matrix, _ right: simd_double2) -> simd_double2 {
-    return simd_double2(0,0)
+public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
+    // Hamilton product https://en.wikipedia.org/wiki/Quaternion
+    let a1 = left.r
+    let a2 = right.r
+    let b1 = left.ix
+    let b2 = right.ix
+    let c1 = left.iy
+    let c2 = right.iy
+    let d1 = left.iz
+    let d2 = right.iz
+    let r  = a1*a2 - b1*b2 - c1*c2 - d1*d2
+    let ix = a1*b2 + b1*a2 + c1*d2 - d1*c2
+    let iy = a1*c2 - b1*d2 + c1*a2 + d1*b2
+    let iz = a1*d2 + b1*c2 - c1*b2 + d1*a2
+    return simd_quatd(ix,iy,iz,x)
 }
+
