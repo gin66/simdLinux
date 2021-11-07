@@ -12,6 +12,11 @@ public struct simd_double2: Codable, Hashable {
         self.x = x
         self.y = y
     }
+    public init(from decoder: Decoder) throws {
+        let a = try Array<Double>.init(from: decoder)
+        self.x = a[0]
+        self.y = a[1]
+    }
 }
 extension simd_double2: Equatable {
     public static func == (left: simd_double2, right: simd_double2) -> Bool {
@@ -76,6 +81,12 @@ public struct simd_double3: Codable, Hashable {
         self.x = v[0]
         self.y = v[1]
         self.z = v[2]
+    }
+    public init(from decoder: Decoder) throws {
+        let a = try Array<Double>.init(from: decoder)
+        self.x = a[0]
+        self.y = a[1]
+        self.z = a[2]
     }
     public static let zero = simd_double3(0,0,0)
     public static let one = simd_double3(1,1,1)
