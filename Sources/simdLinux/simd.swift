@@ -240,7 +240,7 @@ public struct simd_matrix: Codable, Hashable {
 
     public init(_ c1: simd_double2,_ c2: simd_double2) {
         self.c1 = c1
-        self.c2 = c1
+        self.c2 = c2
     }
 }
 
