@@ -31,6 +31,11 @@ public struct SimdRecordingAct: Codable {
     public let p2: simd_double3
     public let res: simd_double3
 }
+public struct SimdRecordingCross: Codable {
+    public let p1: simd_double3
+    public let p2: simd_double3
+    public let res: simd_double3
+}
 public struct SimdRecording: Codable {
     public var enable: Bool
     public var mul: [SimdRecordingMul]
@@ -41,6 +46,9 @@ public struct SimdRecording: Codable {
     }
     mutating func append(act: SimdRecordingAct) {
         self.act.append(act)
+    }
+    mutating func append(cross: SimdRecordingCross) {
+        self.cross.append(cross)
     }
 }
 #endif
@@ -252,7 +260,14 @@ public func simd_cross(_ left: simd_double3, _ right: simd_double3) -> simd_doub
     let x = left.y*right.z - left.z*right.y
     let y = left.z*right.x - left.x*right.z
     let z = left.x*right.y - left.y*right.x
-    return simd_double3(x,y,z)
+    let res = simd_double3(x,y,z)
+    if recording.enable {
+        let entry = SimdRecordingMul(p1: left, p2: right, res: res)
+        recording.append(cross: entry)
+        print(recording.cross.count)
+    }
+    print("simd_cross", recording.cross.count)
+    return res
 }
 public func simd_min(_ left: simd_double3, _ right: simd_double3) -> simd_double3 {
     return simd_double3(min(left.x,right.x), min(left.y,right.y), min(left.z,right.z))
@@ -301,6 +316,7 @@ public func simd_act(_ quat: simd_quatd, _ vector: simd_double3) -> simd_double3
         let entry = SimdRecordingAct(p1: quat, p2: vector, res: res)
         recording.append(act: entry)
     }
+    print("simd_act", recording.act.count)
     return res
 }
 public func simd_quaternion(_ ang: Double, _ vector: simd_double3) -> simd_quatd {
@@ -327,12 +343,12 @@ public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
     let iy = a1*c2 - b1*d2 + c1*a2 + d1*b2
     let iz = a1*d2 + b1*c2 - c1*b2 + d1*a2
     let res =  simd_quatd(ix,iy,iz,r)
-    print("simd_mul")
     if recording.enable {
         let entry = SimdRecordingMul(p1: left, p2: right, res: res)
         recording.append(mul: entry)
         print(recording.mul.count)
     }
+    print("simd_mul", recording.mul.count)
     return res
 }
 #endif
