@@ -327,9 +327,11 @@ public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
     let iy = a1*c2 - b1*d2 + c1*a2 + d1*b2
     let iz = a1*d2 + b1*c2 - c1*b2 + d1*a2
     let res =  simd_quatd(ix,iy,iz,r)
+    print("simd_mul")
     if recording.enable {
         let entry = SimdRecordingMul(p1: left, p2: right, res: res)
         recording.append(mul: entry)
+        print(recording.mul.count)
     }
     return res
 }
