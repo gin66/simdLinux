@@ -60,7 +60,7 @@ final class simdTests: XCTestCase {
         let decoder = JSONDecoder()
         let d = try! fh.readToEnd()!
         if let recording = try? decoder.decode(SimdRecording.self, from: d) {
-            print("Entries:", recording.mul.count, recording.act.count)
+            print("Entries:", recording.mul.count, recording.act.count, recording.cross.count)
 
             for entry in recording.mul {
                 let q1 = simd_quatd(vector: entry.p1)
@@ -73,6 +73,12 @@ final class simdTests: XCTestCase {
             for entry in recording.act {
                 let q1 = simd_quatd(vector: entry.p1)
                 let res = simd_act(q1, entry.p2)
+                let d = simd_distance(res, entry.res)
+                XCTAssertLessThan(d, 1e-12)
+            }
+
+            for entry in recording.cross {
+                let res = simd_crpss(entry.p1, entry.p2)
                 let d = simd_distance(res, entry.res)
                 XCTAssertLessThan(d, 1e-12)
             }

@@ -266,9 +266,7 @@ public func simd_cross(_ left: simd_double3, _ right: simd_double3) -> simd_doub
     if recording.enable {
         let entry = SimdRecordingCross(p1: left, p2: right, res: res)
         recording.append(cross: entry)
-        print(recording.cross.count)
     }
-    print("simd_cross", recording.cross.count)
     return res
 }
 public func simd_min(_ left: simd_double3, _ right: simd_double3) -> simd_double3 {
@@ -318,7 +316,6 @@ public func simd_act(_ quat: simd_quatd, _ vector: simd_double3) -> simd_double3
         let entry = SimdRecordingAct(p1: quat, p2: vector, res: res)
         recording.append(act: entry)
     }
-    print("simd_act", recording.act.count)
     return res
 }
 public func simd_quaternion(_ ang: Double, _ vector: simd_double3) -> simd_quatd {
@@ -348,9 +345,7 @@ public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
     if recording.enable {
         let entry = SimdRecordingMul(p1: left, p2: right, res: res)
         recording.append(mul: entry)
-        print(recording.mul.count)
     }
-    print("simd_mul", recording.mul.count)
     return res
 }
 #endif
