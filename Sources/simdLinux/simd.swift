@@ -35,6 +35,13 @@ public struct SimdRecording: Codable {
     public var enable: Bool
     public var mul: [SimdRecordingMul]
     public var act: [SimdRecordingAct]
+
+    mutating func append(mul: SimdRecordingMul) {
+        self.mul.append(mul)
+    }
+    mutating func append(act: SimdRecordingAct) {
+        self.act.append(act)
+    }
 }
 #endif
 public var recording = SimdRecording(enable: false, mul: [], act: [])
@@ -292,7 +299,7 @@ public func simd_act(_ quat: simd_quatd, _ vector: simd_double3) -> simd_double3
     let res = vector + 2*quat.r*w_x + 2 * w_w_x
     if recording.enable {
         let entry = SimdRecordingAct(p1: quat, p2: vector, res: res)
-        recording.act.append(entry)
+        recording.append(act: entry)
     }
     return res
 }
@@ -322,7 +329,7 @@ public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
     let res =  simd_quatd(ix,iy,iz,r)
     if recording.enable {
         let entry = SimdRecordingMul(p1: left, p2: right, res: res)
-        recording.mul.append(entry)
+        recording.append(mul: entry)
     }
     return res
 }
