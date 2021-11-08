@@ -5,7 +5,6 @@ import simd
 #endif
 
 #if os(macOS)
-let record = false
 public struct SimdRecordingMul: Codable {
     public let p1: SIMD4<Double>
     public let p2: SIMD4<Double>
@@ -17,11 +16,11 @@ public struct SimdRecordingAct: Codable {
     public let res: simd_double3
 }
 public struct SimdRecording: Codable {
+    public var enable: Bool
     public var mul: [SimdRecordingMul]
     public var act: [SimdRecordingAct]
 }
 #else
-public var record = false
 public struct SimdRecordingMul: Codable {
     public let p1: simd_quatd
     public let p2: simd_quatd
@@ -33,11 +32,12 @@ public struct SimdRecordingAct: Codable {
     public let res: simd_double3
 }
 public struct SimdRecording: Codable {
+    public var enable: Bool
     public var mul: [SimdRecordingMul]
     public var act: [SimdRecordingAct]
 }
 #endif
-public var recording = SimdRecording(mul: [], act: [])
+public var recording = SimdRecording(enable: false, mul: [], act: [])
 
 #if os(Linux)
 public struct simd_double2: Codable, Hashable {
@@ -290,7 +290,7 @@ public func simd_act(_ quat: simd_quatd, _ vector: simd_double3) -> simd_double3
     let w_x = simd_cross(w,vector)
     let w_w_x = simd_cross(w, w_x)
     let res = vector + 2*quat.r*w_x + 2 * w_w_x
-    if record {
+    if recording.enable {
         let entry = SimdRecordingAct(p1: quat, p2: vector, res: res)
         recording.act.append(entry)
     }
@@ -320,7 +320,7 @@ public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
     let iy = a1*c2 - b1*d2 + c1*a2 + d1*b2
     let iz = a1*d2 + b1*c2 - c1*b2 + d1*a2
     let res =  simd_quatd(ix,iy,iz,r)
-    if record {
+    if recording.enable {
         let entry = SimdRecordingMul(p1: left, p2: right, res: res)
         recording.mul.append(entry)
     }

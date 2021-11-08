@@ -72,7 +72,7 @@ final class simdTests: XCTestCase {
 
             for entry in recording.act {
                 let q1 = simd_quatd(vector: entry.p1)
-                let res = simd_act(q1, p2)
+                let res = simd_act(q1, entry.p2)
                 let d = simd_distance(res, entry.res)
                 XCTAssertLessThan(d, 1e-12)
             }
