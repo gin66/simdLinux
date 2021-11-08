@@ -262,7 +262,7 @@ public func simd_cross(_ left: simd_double3, _ right: simd_double3) -> simd_doub
     let z = left.x*right.y - left.y*right.x
     let res = simd_double3(x,y,z)
     if recording.enable {
-        let entry = SimdRecordingMul(p1: left, p2: right, res: res)
+        let entry = SimdRecordingCross(p1: left, p2: right, res: res)
         recording.append(cross: entry)
         print(recording.cross.count)
     }
