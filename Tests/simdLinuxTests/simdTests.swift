@@ -78,7 +78,7 @@ final class simdTests: XCTestCase {
             }
 
             for entry in recording.cross {
-                let res = simd_crpss(entry.p1, entry.p2)
+                let res = simd_cross(entry.p1, entry.p2)
                 let d = simd_distance(res, entry.res)
                 XCTAssertLessThan(d, 1e-12)
             }

@@ -15,6 +15,11 @@ public struct SimdRecordingAct: Codable {
     public let p2: simd_double3
     public let res: simd_double3
 }
+public struct SimdRecordingCross: Codable {
+    public let p1: simd_double3
+    public let p2: simd_double3
+    public let res: simd_double3
+}
 public struct SimdRecording: Codable {
     public var enable: Bool
     public var mul: [SimdRecordingMul]
