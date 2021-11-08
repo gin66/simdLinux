@@ -19,6 +19,7 @@ public struct SimdRecording: Codable {
     public var enable: Bool
     public var mul: [SimdRecordingMul]
     public var act: [SimdRecordingAct]
+    public var cross: [SimdRecordingCross]
 }
 #else
 public struct SimdRecordingMul: Codable {
@@ -40,6 +41,7 @@ public struct SimdRecording: Codable {
     public var enable: Bool
     public var mul: [SimdRecordingMul]
     public var act: [SimdRecordingAct]
+    public var cross: [SimdRecordingCross]
 
     mutating func append(mul: SimdRecordingMul) {
         self.mul.append(mul)
@@ -52,7 +54,7 @@ public struct SimdRecording: Codable {
     }
 }
 #endif
-public var recording = SimdRecording(enable: false, mul: [], act: [])
+public var recording = SimdRecording(enable: false, mul: [], act: [], cross: [])
 
 #if os(Linux)
 public struct simd_double2: Codable, Hashable {
