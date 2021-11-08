@@ -1,5 +1,45 @@
 import Foundation
 
+#if os(macOS) || os(iOS)
+import simd
+#endif
+
+#if os(macOS)
+let record = false
+public struct SimdRecordingMul: Codable {
+    public let p1: SIMD4<Double>
+    public let p2: SIMD4<Double>
+    public let res: SIMD4<Double>
+}
+public struct SimdRecordingAct: Codable {
+    public let p1: SIMD4<Double>
+    public let p2: simd_double3
+    public let res: simd_double3
+}
+public struct SimdRecording: Codable {
+    public var mul: [SimdRecordingMul]
+    public var act: [SimdRecordingAct]
+}
+#else
+let record = true
+struct SimdRecordingMul: Codable {
+    let p1: simd_quatd
+    let p2: simd_quatd
+    let res: simd_quatd
+}
+struct SimdRecordingAct: Codable {
+    let p1: simd_quatd
+    let p2: simd_double3
+    let res: simd_double3
+}
+struct SimdRecording: Codable {
+    var mul: [SimdRecordingMul]
+    var act: [SimdRecordingAct]
+}
+#endif
+var recording = SimdRecording(mul: [], act: [])
+
+#if os(Linux)
 public struct simd_double2: Codable, Hashable {
     public var x: Double
     public var y: Double
@@ -16,6 +56,10 @@ public struct simd_double2: Codable, Hashable {
         let a = try Array<Double>.init(from: decoder)
         self.x = a[0]
         self.y = a[1]
+    }
+    public func encode(to encoder: Encoder) throws {
+        let v:[Double] = [self.x, self.y]
+        try v.encode(to: encoder)
     }
 }
 extension simd_double2: Equatable {
@@ -88,6 +132,10 @@ public struct simd_double3: Codable, Hashable {
         self.y = a[1]
         self.z = a[2]
     }
+    public func encode(to encoder: Encoder) throws {
+        let v:[Double] = [self.x, self.y,self.z]
+        try v.encode(to: encoder)
+    }
     public static let zero = simd_double3(0,0,0)
     public static let one = simd_double3(1,1,1)
 }
@@ -149,6 +197,18 @@ public struct simd_quatd: Codable {
         self.iy = iy
         self.iz = iz
         self.r = r
+    }
+
+    public init(from decoder: Decoder) throws {
+        let a = try Array<Double>.init(from: decoder)
+        self.ix = a[0]
+        self.iy = a[1]
+        self.iz = a[2]
+        self.r = a[2]
+    }
+    public func encode(to encoder: Encoder) throws {
+        let v:[Double] = [self.ix, self.iy,self.iz,self.r]
+        try v.encode(to: encoder)
     }
 }
 
@@ -229,7 +289,12 @@ public func simd_act(_ quat: simd_quatd, _ vector: simd_double3) -> simd_double3
     let w = simd_double3(quat.ix,quat.iy,quat.iz)
     let w_x = simd_cross(w,vector)
     let w_w_x = simd_cross(w, w_x)
-    return vector + 2*quat.r*w_x + 2 * w_w_x
+    let res = vector + 2*quat.r*w_x + 2 * w_w_x
+    if record {
+        let entry = SimdRecordingAct(p1: quat, p2: vector, res: res)
+        recording.act.append(entry)
+    }
+    return res
 }
 public func simd_quaternion(_ ang: Double, _ vector: simd_double3) -> simd_quatd {
     let n = simd_normalize(vector)
@@ -254,6 +319,14 @@ public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
     let ix = a1*b2 + b1*a2 + c1*d2 - d1*c2
     let iy = a1*c2 - b1*d2 + c1*a2 + d1*b2
     let iz = a1*d2 + b1*c2 - c1*b2 + d1*a2
-    return simd_quatd(ix,iy,iz,r)
+    let res =  simd_quatd(ix,iy,iz,r)
+    if record {
+        let entry = SimdRecordingMul(p1: left, p2: right, res: res)
+        recording.mul.append(entry)
+    }
+    return res
 }
-
+public func writeRecording(to encoder: Encoder) throws {
+    try recording.encode(to: encoder)
+}
+#endif
