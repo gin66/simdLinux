@@ -21,7 +21,7 @@ public struct SimdRecording: Codable {
     public var act: [SimdRecordingAct]
 }
 #else
-let record = true
+public var record = false
 struct SimdRecordingMul: Codable {
     let p1: simd_quatd
     let p2: simd_quatd
