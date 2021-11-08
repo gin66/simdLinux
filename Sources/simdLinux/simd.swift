@@ -22,22 +22,22 @@ public struct SimdRecording: Codable {
 }
 #else
 public var record = false
-struct SimdRecordingMul: Codable {
-    let p1: simd_quatd
-    let p2: simd_quatd
-    let res: simd_quatd
+public struct SimdRecordingMul: Codable {
+    public let p1: simd_quatd
+    public let p2: simd_quatd
+    public let res: simd_quatd
 }
-struct SimdRecordingAct: Codable {
-    let p1: simd_quatd
-    let p2: simd_double3
-    let res: simd_double3
+public struct SimdRecordingAct: Codable {
+    public let p1: simd_quatd
+    public let p2: simd_double3
+    public let res: simd_double3
 }
-struct SimdRecording: Codable {
-    var mul: [SimdRecordingMul]
-    var act: [SimdRecordingAct]
+public struct SimdRecording: Codable {
+    public var mul: [SimdRecordingMul]
+    public var act: [SimdRecordingAct]
 }
 #endif
-var recording = SimdRecording(mul: [], act: [])
+public var recording = SimdRecording(mul: [], act: [])
 
 #if os(Linux)
 public struct simd_double2: Codable, Hashable {
@@ -325,8 +325,5 @@ public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
         recording.mul.append(entry)
     }
     return res
-}
-public func writeRecording(to encoder: Encoder) throws {
-    try recording.encode(to: encoder)
 }
 #endif
