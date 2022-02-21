@@ -4,7 +4,7 @@ import Foundation
 import simd
 #endif
 
-#if os(macOS)
+#if os(macOS) || os(iOS)
 public struct SimdRecordingMul: Codable {
     public let p1: SIMD4<Double>
     public let p2: SIMD4<Double>
