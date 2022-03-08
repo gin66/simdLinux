@@ -232,6 +232,17 @@ public struct simd_quatd: Codable {
         let v:[Double] = [self.ix, self.iy,self.iz,self.r]
         try v.encode(to: encoder)
     }
+    public init(from v1: simd_double3, to v2: simd_double3) throws {
+        let rot = simd_cross(v1, v2)
+        let norm = simd_length(v1) * simd_length(v2)
+        let sinA = simd_length(rot) / norm
+        let cosA = simd_dot(v1, v2) / norm
+
+        self.ix = rot.x * sinA
+        self.iy = rot.y * sinA
+        self.iz = rot.z * sinA
+        self.r = cosA
+    }
 }
 
 public struct simd_matrix: Codable, Hashable {
