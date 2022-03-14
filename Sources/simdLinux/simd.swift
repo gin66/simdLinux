@@ -243,6 +243,7 @@ public struct simd_quatd: Codable {
         self.iz = rot.z * sinA
         self.r = cosA
     }
+    public var axis : simd_double3 = { return simd_double3(self.ix, self.iy, self.iz) }
 }
 
 public struct simd_matrix: Codable, Hashable {
