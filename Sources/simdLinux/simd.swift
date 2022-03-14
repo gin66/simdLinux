@@ -243,7 +243,7 @@ public struct simd_quatd: Codable {
         self.iz = rot.z * sinA
         self.r = cosA
     }
-    public lazy var axis : simd_double3 = { return simd_double3(x, iy, iz) }()
+    public lazy var axis : simd_double3 = { return simd_double3(ix, iy, iz) }()
     public lazy var angle: Double = { return acos(r)*2 }()
 }
 
