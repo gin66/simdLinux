@@ -1,23 +1,23 @@
 import Foundation
 
 public func simd_dot<T: FloatingPoint>(_ left: SIMD2<T>, _ right: SIMD2<T>) -> T {
-    return left.dot(other: right)
+    return left.dot(right)
 }
 public func simd_dot<T: FloatingPoint>(_ left: SIMD3<T>, _ right: SIMD3<T>) -> T {
-    return left.dot(other: right)
+    return left.dot(right)
 }
 public func simd_dot<T: FloatingPoint>(_ left: SIMD4<T>, _ right: SIMD4<T>) -> T {
-    return left.dot(other: right)
+    return left.dot(right)
 }
 
 public func simd_distance<T: FloatingPoint>(_ left: SIMD2<T>, _ right: SIMD2<T>) -> T {
-    return left.distance(other: right)
+    return left.distance(right)
 }
 public func simd_distance<T: FloatingPoint>(_ left: SIMD3<T>, _ right: SIMD3<T>) -> T {
-    return left.distance(other: right)
+    return left.distance(right)
 }
 public func simd_distance<T: FloatingPoint>(_ left: SIMD4<T>, _ right: SIMD4<T>) -> T {
-    return left.distance(other: right)
+    return left.distance(right)
 }
 
 public func simd_max<T: FloatingPoint>(_ left: SIMD2<T>, _ right: SIMD2<T>) -> SIMD2<T> {
