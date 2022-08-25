@@ -26,12 +26,6 @@ public func simd_act(_ quat: simd_quatd, _ vector: simd_double3) -> simd_double3
     return res
 }
 
-public func simd_mul(_ left: simd_matrix, _ right: simd_double2) -> simd_double2 {
-    let x = left.c1.x*right.x + left.c2.x*right.y
-    let y = left.c1.y*right.x + left.c2.y*right.y
-    return simd_double2(x, y)
-}
-
 public func simd_quaternion(_ ang: Double, _ vector: simd_double3) -> simd_quatd {
     let n = simd_normalize(vector)
     let c = cos(ang/2)
