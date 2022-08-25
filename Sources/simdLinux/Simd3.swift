@@ -17,6 +17,7 @@ public struct SIMD3<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: 
     public typealias Scalar = T
 
     public var vector: [T]
+    public let scalarCount = 3
 
     var x: T {
         get { return vector[0] }
@@ -42,15 +43,19 @@ public struct SIMD3<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: 
     }
 
     public init(from decoder: Decoder) throws {
-        let a = try Array<T>.init(from: decoder)
-        vector = a
+        vector = try Array<T>.init(from: decoder)
     }
 
     public func encode(to encoder: Encoder) throws {
         try vector.encode(to: encoder)
+        if vector.count != scalarCount {
+            fatalError("wrong vector length for SIMD2(vector:)")
+        }
     }
-
     public init(_ vector: [T]) {
         self.vector = vector
+        if vector.count != scalarCount {
+            fatalError("wrong vector length for SIMD2(vector:)")
+        }
     }
 }

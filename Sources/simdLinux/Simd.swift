@@ -27,7 +27,6 @@ public extension SIMD {
             vector[index] = newElm
         }
     }
-    var scalarCount:Int { get { vector.count } }
 
     static func == (left: Self, right: Self) -> Bool {
         for i in 0..<left.scalarCount {
