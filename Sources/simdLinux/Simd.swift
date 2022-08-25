@@ -1,50 +1,130 @@
+//
+//  File.swift
+//
+//
+//  Created by Jochen Kiemes on 25.08.22.
+//
+
 import Foundation
 
-public struct simd_matrix: Codable, Hashable {
-    public var c1: simd_double2
-    public var c2: simd_double2
+public protocol SIMD {
+    associatedtype Scalar: Comparable,AdditiveArithmetic, Numeric, Hashable, FloatingPoint
 
-    public init(_ c1: simd_double2, _ c2: simd_double2) {
-        self.c1 = c1
-        self.c2 = c2
+    var vector: [Scalar] { get set }
+    var scalarCount: Int { get }
+
+    subscript(index:Int) -> Scalar { get set }
+
+    init(_ vector: [Scalar])
+}
+
+public extension SIMD {
+    subscript(index:Int) -> Scalar {
+        get {
+            return vector[index]
+        }
+        set(newElm) {
+            vector[index] = newElm
+        }
+    }
+    var scalarCount:Int { get { vector.count } }
+
+    static func == (left: Self, right: Self) -> Bool {
+        for i in 0..<left.scalarCount {
+            if left[i] != right[i] {
+                return false
+            }
+        }
+        return true
+    }
+
+    static func + (left: Self, right: Self) -> Self {
+        return Self(zip(left.vector, right.vector).map { $0 + $1 })
+    }
+
+    static func + (left: Self, right: Scalar) -> Self {
+        return Self(left.vector.map { $0 + right })
+    }
+
+    static func - (left: Self, right: Self) -> Self {
+        return Self(zip(left.vector, right.vector).map { $0 - $1 })
+    }
+
+    static func - (left: Self, right: Scalar) -> Self {
+        return Self(left.vector.map { $0 - right })
+    }
+
+    static prefix func - (vector: Self) -> Self {
+        return Self(vector.vector.map { -$0 })
+    }
+
+    static func * (left: Self, right: Self) -> Self {
+        return Self(zip(left.vector, right.vector).map { $0 * $1 })
+    }
+
+    static func * (left: Self, right: Scalar) -> Self {
+        return Self(left.vector.map { $0 * right })
+    }
+
+    static func * (left: Scalar, right: Self) -> Self {
+        return Self(right.vector.map { $0 * left })
+    }
+
+    static func / (left: Self, right: Scalar) -> Self {
+        return Self(left.vector.map { $0 / right })
+    }
+
+    static func += (left: inout Self, right: Self) {
+        for i in 0..<left.scalarCount {
+            left.vector[i] += right.vector[i]
+        }
+    }
+
+    static func -= (left: inout Self, right: Self) {
+        for i in 0..<left.scalarCount {
+            left.vector[i] -= right.vector[i]
+        }
+    }
+
+    func min(_ other: Self) -> Self {
+        return Self(zip(self.vector, other.vector).map { Swift.min($0, $1) })
+    }
+
+    func max(_ other: Self) -> Self {
+        return Self(zip(self.vector, other.vector).map { Swift.max($0, $1) })
+    }
+
+    func dot(_ other: Self) -> Scalar {
+        var sum: Scalar = 0
+        for i in 0..<scalarCount {
+            sum += vector[i] * other.vector[i]
+        }
+        return sum
+    }
+
+    func distance(_ other: Self) -> Scalar {
+        var sum: Scalar = 0
+        for i in 0..<scalarCount {
+            let delta = vector[i] - other.vector[i]
+            sum += delta * delta
+        }
+        return sum.squareRoot()
+    }
+
+    func length() -> Scalar {
+        var sum: Scalar = 0
+        for i in 0..<scalarCount {
+            let delta = vector[i]
+            sum += delta * delta
+        }
+        return sum.squareRoot()
+    }
+
+    func normalize() -> Self {
+        return self / self.length()
+    }
+
+    func abs() -> Self {
+        return Self(vector.map{$0})
     }
 }
-
-public func simd_mul(_ left: simd_matrix, _ right: simd_double2) -> simd_double2 {
-    let x = left.c1.x*right.x + left.c2.x*right.y
-    let y = left.c1.y*right.x + left.c2.y*right.y
-    return simd_double2(x, y)
-}
-
-public func simd_quaternion(_ ang: Double, _ vector: simd_double3) -> simd_quatd {
-    let n = simd_normalize(vector)
-    let c = cos(ang/2)
-    let s = sin(ang/2)
-    let ix = n.x*s
-    let iy = n.y*s
-    let iz = n.z*s
-    return simd_quatd(ix, iy, iz, c)
-}
-
-public func simd_mul(_ left: simd_quatd, _ right: simd_quatd) -> simd_quatd {
-    // Hamilton product https://en.wikipedia.org/wiki/Quaternion
-    let a1 = left.r
-    let a2 = right.r
-    let b1 = left.ix
-    let b2 = right.ix
-    let c1 = left.iy
-    let c2 = right.iy
-    let d1 = left.iz
-    let d2 = right.iz
-    let r = a1*a2 - b1*b2 - c1*c2 - d1*d2
-    let ix = a1*b2 + b1*a2 + c1*d2 - d1*c2
-    let iy = a1*c2 - b1*d2 + c1*a2 + d1*b2
-    let iz = a1*d2 + b1*c2 - c1*b2 + d1*a2
-    let res = simd_quatd(ix, iy, iz, r)
-//    if recording.enable {
-//        let entry = SimdRecordingMul(p1: left, p2: right, res: res)
-//        recording.append(mul: entry)
-//    }
-    return res
-}
-
