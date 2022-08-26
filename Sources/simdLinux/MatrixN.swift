@@ -1,7 +1,5 @@
 import Foundation
 
-import simd
-
 public func simd_mul(_ left: simd_float2x2, _ right: simd_float2) -> simd_float2 {
     return left * right
 }

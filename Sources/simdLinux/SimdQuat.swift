@@ -39,6 +39,30 @@ public struct QUAT4<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: 
         set(newR) { vector[3] = newR }
     }
 
+    public init(from v1: SIMD3<T>, to v2: SIMD3<T>) {
+        let rot = simd_cross(v1, v2)
+        let norm = simd_length(v1) * simd_length(v2)
+        let sinA = simd_length(rot) / norm
+        let cosA = simd_dot(v1, v2) / norm
+
+        let ix = rot.x * sinA
+        let iy = rot.y * sinA
+        let iz = rot.z * sinA
+        let r = cosA
+        vector = [ix, iy, iz, r]
+    }
+
+    public var axis: SIMD3<T> { return SIMD3<T>(ix, iy, iz) }
+    var angle: T {
+        if let rf = r as? Float {
+            return (acos(rf) * 2) as! T
+        }
+        if let rd = r as? Double {
+            return acos(rd) * 2 as! T
+        }
+        return 0
+    }
+
     public init(_ ix: T, _ iy: T, _ iz: T, _ r: T) {
         vector = [ix, iy, iz, r]
     }
@@ -57,6 +81,7 @@ public struct QUAT4<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: 
             fatalError("wrong vector length for SIMD2(vector:)")
         }
     }
+
     public init(_ vector: [T]) {
         self.vector = vector
         if vector.count != scalarCount {

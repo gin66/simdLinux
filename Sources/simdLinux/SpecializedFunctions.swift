@@ -1,10 +1,10 @@
 import Foundation
 
-public func simd_cross(_ left: simd_double3, _ right: simd_double3) -> simd_double3 {
+public func simd_cross<T: FloatingPoint>(_ left: SIMD3<T>, _ right: SIMD3<T>) -> SIMD3<T> {
     let x = left.y*right.z - left.z*right.y
     let y = left.z*right.x - left.x*right.z
     let z = left.x*right.y - left.y*right.x
-    let res = simd_double3(x, y, z)
+    let res = SIMD3<T>(x, y, z)
 //    if recording.enable {
 //        let entry = SimdRecordingCross(p1: left, p2: right, res: res)
 //        recording.append(cross: entry)
