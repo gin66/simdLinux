@@ -19,17 +19,17 @@ public struct SIMD3<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: 
     public var vector: [T]
     public let scalarCount = 3
 
-    var x: T {
+    public var x: T {
         get { return vector[0] }
         set(newX) { vector[0] = newX }
     }
 
-    var y: T {
+    public var y: T {
         get { return vector[1] }
         set(newY) { vector[1] = newY }
     }
 
-    var z: T {
+    public var z: T {
         get { return vector[2] }
         set(newZ) { vector[2] = newZ }
     }

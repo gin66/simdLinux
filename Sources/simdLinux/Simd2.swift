@@ -18,12 +18,12 @@ public struct SIMD2<T>:  Codable, Hashable, SIMD where T: AdditiveArithmetic, T:
     public var vector: [T]
     public let scalarCount = 2
 
-    var x: T {
+    public var x: T {
         get { return vector[0] }
         set(newX) { vector[0] = newX }
     }
 
-    var y: T {
+    public var y: T {
         get { return vector[1] }
         set(newY) { vector[1] = newY }
     }

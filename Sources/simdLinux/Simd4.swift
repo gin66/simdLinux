@@ -20,22 +20,22 @@ public struct SIMD4<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: 
     public var vector: [T]
     public let scalarCount = 4
 
-    var x: T {
+    public var x: T {
         get { return vector[0] }
         set(newX) { vector[0] = newX }
     }
 
-    var y: T {
+    public var y: T {
         get { return vector[1] }
         set(newY) { vector[1] = newY }
     }
 
-    var z: T {
+    public var z: T {
         get { return vector[2] }
         set(newZ) { vector[2] = newZ }
     }
 
-    var w: T {
+    public var w: T {
         get { return vector[3] }
         set(newW) { vector[3] = newW }
     }

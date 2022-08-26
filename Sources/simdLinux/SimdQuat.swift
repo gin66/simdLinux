@@ -19,22 +19,22 @@ public struct QUAT4<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: 
     public var vector: [T]
     public let scalarCount = 4
 
-    var ix: T {
+    public var ix: T {
         get { return vector[0] }
         set(newX) { vector[0] = newX }
     }
 
-    var iy: T {
+    public var iy: T {
         get { return vector[1] }
         set(newY) { vector[1] = newY }
     }
 
-    var iz: T {
+    public var iz: T {
         get { return vector[2] }
         set(newZ) { vector[2] = newZ }
     }
 
-    var r: T {
+    public var r: T {
         get { return vector[3] }
         set(newR) { vector[3] = newR }
     }
