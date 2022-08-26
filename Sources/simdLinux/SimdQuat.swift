@@ -53,7 +53,7 @@ public struct QUAT4<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: 
     }
 
     public var axis: SIMD3<T> { return SIMD3<T>(ix, iy, iz) }
-    var angle: T {
+    public var angle: T {
         if let rf = r as? Float {
             return (acos(rf) * 2) as! T
         }
