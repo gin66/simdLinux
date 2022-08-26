@@ -1,10 +1,3 @@
-//
-//  File.swift
-//
-//
-//  Created by Jochen Kiemes on 25.08.22.
-//
-
 import Foundation
 
 public protocol SIMD {
