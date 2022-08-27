@@ -2,6 +2,7 @@ import Foundation
 
 public typealias simd_float3 = SIMD3<Float>
 public typealias simd_double3 = SIMD3<Double>
+public typealias simd_int3 = SIMD3<Int>
 public typealias simd_uint3 = SIMD3<UInt>
 public typealias simd_long3 = SIMD3<Int>
 
