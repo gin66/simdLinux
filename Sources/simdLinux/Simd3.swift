@@ -3,21 +3,11 @@ import Foundation
 public typealias simd_float3 = SIMD3<Float>
 public typealias simd_double3 = SIMD3<Double>
 
-public extension simd_float3 {
-    static let zero = simd_float3(0, 0, 0)
-    static let one = simd_float3(1, 1, 1)
-}
-
-public extension simd_double3 {
-    static let zero = simd_double3(0, 0, 0)
-    static let one = simd_double3(1, 1, 1)
-}
-
 public struct SIMD3<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: Numeric, T: Codable, T: Hashable, T: Comparable, T: FloatingPoint {
     public typealias Scalar = T
 
     public var vector: [T]
-    public let scalarCount = 3
+    public static var scalarCount: Int { get { return 3 } }
 
     public var x: T {
         get { return vector[0] }

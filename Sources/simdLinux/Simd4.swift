@@ -3,22 +3,12 @@ import Foundation
 public typealias simd_float4 = SIMD4<Float>
 public typealias simd_double4 = SIMD4<Double>
 
-public extension simd_float4 {
-    static let zero = simd_float4(0, 0, 0, 0)
-    static let one = simd_float4(1, 1, 1, 1)
-}
-
-public extension simd_double4 {
-    static let zero = simd_double4(0, 0, 0, 0)
-    static let one = simd_double4(1, 1, 1, 1)
-}
-
 public struct SIMD4<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: Numeric, T: Codable, T: Hashable, T: Comparable, T: FloatingPoint {
 
     public typealias Scalar = T
 
     public var vector: [T]
-    public let scalarCount = 4
+    public static var scalarCount: Int { get { return 4 } }
 
     public var x: T {
         get { return vector[0] }

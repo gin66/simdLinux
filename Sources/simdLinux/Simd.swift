@@ -4,6 +4,7 @@ public protocol SIMD {
     associatedtype Scalar: Comparable,AdditiveArithmetic, Numeric, Hashable, FloatingPoint
 
     var vector: [Scalar] { get set }
+    static var scalarCount: Int { get }
     var scalarCount: Int { get }
 
     subscript(index:Int) -> Scalar { get set }
@@ -12,6 +13,8 @@ public protocol SIMD {
 }
 
 public extension SIMD {
+    var scalarCount: Int { get { Self.scalarCount } }
+
     subscript(index:Int) -> Scalar {
         get {
             return vector[index]
@@ -118,5 +121,31 @@ public extension SIMD {
 
     func abs() -> Self {
         return Self(vector.map{$0})
+    }
+}
+
+public extension SIMD where Scalar == Float {
+    static var zero: Self {
+        get {
+            Self(Array(repeating: 0, count: Self.scalarCount))
+        }
+    }
+    static var one: Self {
+        get {
+            Self(Array(repeating: 1, count: Self.scalarCount))
+        }
+    }
+}
+
+public extension SIMD where Scalar == Double {
+    static var zero: Self {
+        get {
+            Self(Array(repeating: 0, count: Self.scalarCount))
+        }
+    }
+    static var one: Self {
+        get {
+            Self(Array(repeating: 1, count: Self.scalarCount))
+        }
     }
 }

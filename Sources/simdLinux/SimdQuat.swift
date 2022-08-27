@@ -3,21 +3,11 @@ import Foundation
 public typealias simd_quatf = QUAT4<Float>
 public typealias simd_quatd = QUAT4<Double>
 
-public extension simd_quatf {
-    static let zero = simd_quatf(0, 0, 0, 0)
-    static let one = simd_quatf(1, 1, 1, 1)
-}
-
-public extension simd_quatd {
-    static let zero = simd_quatd(0, 0, 0, 0)
-    static let one = simd_quatd(1, 1, 1, 1)
-}
-
 public struct QUAT4<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: Numeric, T: Codable, T: Hashable, T: Comparable, T: FloatingPoint {
     public typealias Scalar = T
 
     public var vector: [T]
-    public let scalarCount = 4
+    public static var scalarCount: Int { get { return 4 } }
 
     public var ix: T {
         get { return vector[0] }
