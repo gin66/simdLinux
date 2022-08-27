@@ -2,8 +2,10 @@ import Foundation
 
 public typealias simd_float4 = SIMD4<Float>
 public typealias simd_double4 = SIMD4<Double>
+public typealias simd_uint4 = SIMD4<UInt>
+public typealias simd_long4 = SIMD4<Int>
 
-public struct SIMD4<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: Numeric, T: Codable, T: Hashable, T: Comparable, T: FloatingPoint {
+public struct SIMD4<T>: Codable, Hashable, SIMD where T: Numeric, T: Codable, T: Hashable, T: Comparable {
 
     public typealias Scalar = T
 
@@ -41,7 +43,7 @@ public struct SIMD4<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: 
     public init(_ vector: [T]) {
         self.vector = vector
         if vector.count != scalarCount {
-            fatalError("wrong vector length for SIMD2(vector:)")
+            fatalError("wrong vector length for SIMD4(vector:)")
         }
     }
 }

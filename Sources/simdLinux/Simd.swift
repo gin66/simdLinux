@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol SIMD {
-    associatedtype Scalar: Comparable,AdditiveArithmetic, Numeric, Hashable, FloatingPoint
+    associatedtype Scalar: Comparable,AdditiveArithmetic, Numeric, Hashable
 
     var vector: [Scalar] { get set }
     static var scalarCount: Int { get }
@@ -49,10 +49,6 @@ public extension SIMD {
         return Self(left.vector.map { $0 - right })
     }
 
-    static prefix func - (vector: Self) -> Self {
-        return Self(vector.vector.map { -$0 })
-    }
-
     static func * (left: Self, right: Self) -> Self {
         return Self(zip(left.vector, right.vector).map { $0 * $1 })
     }
@@ -63,10 +59,6 @@ public extension SIMD {
 
     static func * (left: Scalar, right: Self) -> Self {
         return Self(right.vector.map { $0 * left })
-    }
-
-    static func / (left: Self, right: Scalar) -> Self {
-        return Self(left.vector.map { $0 / right })
     }
 
     static func += (left: inout Self, right: Self) {
@@ -97,6 +89,24 @@ public extension SIMD {
         return sum
     }
 
+    func abs() -> Self {
+        return Self(vector.map{$0})
+    }
+}
+
+public extension SIMD where Scalar: FloatingPoint {
+    static prefix func - (vector: Self) -> Self {
+        return Self(vector.vector.map { -$0 })
+    }
+
+   static func / (left: Self, right: Scalar) -> Self {
+        return Self(left.vector.map { $0 / right })
+    }
+
+    func normalize() -> Self {
+        return self / self.length()
+    }
+
     func distance(_ other: Self) -> Scalar {
         var sum: Scalar = 0
         for i in 0..<scalarCount {
@@ -114,15 +124,23 @@ public extension SIMD {
         }
         return sum.squareRoot()
     }
+}
 
-    func normalize() -> Self {
-        return self / self.length()
+public extension SIMD where Scalar == Int {
+    static prefix func - (vector: Self) -> Self {
+        return Self(vector.vector.map { -$0 })
     }
 
-    func abs() -> Self {
-        return Self(vector.map{$0})
+   static func / (left: Self, right: Scalar) -> Self {
+        return Self(left.vector.map { $0 / right })
     }
 }
+public extension SIMD where Scalar == UInt {
+   static func / (left: Self, right: Scalar) -> Self {
+        return Self(left.vector.map { $0 / right })
+    }
+}
+
 
 public extension SIMD where Scalar: Decodable {
     init(from decoder: Decoder) throws {

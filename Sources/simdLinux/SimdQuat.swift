@@ -64,7 +64,7 @@ public struct QUAT4<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: 
     public init(_ vector: [T]) {
         self.vector = vector
         if vector.count != scalarCount {
-            fatalError("wrong vector length for SIMD2(vector:)")
+            fatalError("wrong vector length for QUAT4(vector:)")
         }
     }
 }
