@@ -10,7 +10,7 @@ import simd
 with
 
 ```swift
-#if os(macOS) || os(iOS) || os(watchOS) || is(tvOS)
+#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
     import simd
 #else
     import simdLinux

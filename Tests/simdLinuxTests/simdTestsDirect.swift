@@ -1,7 +1,7 @@
 import XCTest
 
 // if creating test cases, use import simd
-// while testing use, import simdLinux
+// while testing, use import simdLinux
 //import simd
 import simdLinux
 
