@@ -38,16 +38,6 @@ public struct SIMD4<T>: Codable, Hashable, SIMD where T: AdditiveArithmetic, T: 
         vector = [x, y, z, w]
     }
 
-    public init(from decoder: Decoder) throws {
-        vector = try Array<T>.init(from: decoder)
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        try vector.encode(to: encoder)
-        if vector.count != scalarCount {
-            fatalError("wrong vector length for SIMD2(vector:)")
-        }
-    }
     public init(_ vector: [T]) {
         self.vector = vector
         if vector.count != scalarCount {

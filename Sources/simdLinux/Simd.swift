@@ -124,6 +124,18 @@ public extension SIMD {
     }
 }
 
+public extension SIMD where Scalar: Decodable {
+    init(from decoder: Decoder) throws {
+        self.init(try Array<Scalar>.init(from: decoder))
+    }
+}
+
+public extension SIMD where Scalar: Encodable {
+    func encode(to encoder: Encoder) throws {
+        try vector.encode(to: encoder)
+    }
+}
+
 public extension SIMD where Scalar == Float {
     static var zero: Self {
         get {
